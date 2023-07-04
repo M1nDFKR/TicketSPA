@@ -1,44 +1,27 @@
-# Ignore compiled Python files
-*.pyc
-__pycache__/
+# Ignore Next.js build output
+.next/
 
-# Ignore the virtual environment
-venv/
-env/
+# Ignore Node.js dependencies
+node_modules/
 
-# Ignore local development settings
-settings_local.py
-
-# Ignore database files
-*.sqlite3
-*.db
-
-# Ignore static files
-/static/
-
-# Ignore media uploads
-/media/
-
-# Ignore log files
+# Ignore logs
+logs/
 *.log
 
-# Ignore generated documentation
-/docs/_build/
+# Ignore environment variables
+.env
 
-# Ignore package build directories
-*.egg-info/
-dist/
+# Ignore build artifacts
+out/
 build/
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
 
 # Ignore IDE-specific files
 .vscode/
 .idea/
-*.pydevproject
-*.pyc
-
-# Ignore sensitive or personal information
-secret_key.txt
-*.env
 
 # Ignore system-specific files
 .DS_Store
