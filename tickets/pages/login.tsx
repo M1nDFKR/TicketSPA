@@ -22,18 +22,17 @@ const LoginPage: React.FC = () => {
     });
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
 
-    try {
-      const response = await axios.post('https://your-django-api-url/login', formData);
-      localStorage.setItem('accessToken', response.data.access);
-      localStorage.setItem('username', formData.username);
-      router.push('/');
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
-  };
+  try {
+    const response = await axios.post('http://localhost:8000/api/login/', formData);
+    localStorage.setItem('authToken', response.data.token);
+    router.push('/');
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
+};
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
