@@ -2,6 +2,8 @@ import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface FormData {
   username: string;
@@ -10,6 +12,7 @@ interface FormData {
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ username: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,22 +35,33 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="container vh-100 d-flex align-items-center justify-content-center">
       <div className="row justify-content-center">
         <div className="col-md-100 mx-auto">
-          <h3 className="text-center mb-4">Escola Digital</h3>
+          <strong><h2 className="text-center mb-3">Kit Escola Digital</h2></strong>
           <div className="text-center">
-            <img src="/logo.png" alt="Logo" className="d-block mx-auto mb-4" />
+            <img src="/alpoente.png" className="d-block mx-auto mb-4" />
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="mb-2 text-center ">
-              <strong><label className="form-label ">Nome:</label></strong>
+            <div className="mb-1 text-center ">
+              <label className="form-label ">Nome:</label>
               <input type="text" className="form-control" name="username" value={formData.username} onChange={handleChange} />
             </div>
             <div className="mb-3 text-center">
-              <strong><label className="form-label">Palavra-Passe:</label></strong>
-              <input type="password" className="form-control" name="password" value={formData.password} onChange={handleChange} />
+              <label className="form-label">Palavra-Passe:</label>
+              <div className="input-group">
+                <input type={showPassword ? "text" : "password"} className="form-control" name="password" value={formData.password} onChange={handleChange} />
+                <div className="input-group-append">
+                  <button type="button" className={`btn ${showPassword ? "btn" : "btn"}`} onClick={toggleShowPassword}>
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-primary">Login</button>
