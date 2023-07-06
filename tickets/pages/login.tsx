@@ -18,7 +18,7 @@ const TicketList: React.FC = () => {
       {tickets.map((ticket) => (
         <div key={ticket.id}>
           <h2>{ticket.title}</h2>
-          <p>{ticket.description}</p>
+          <p>{ticket.body}</p>
         </div>
       ))}
     </div>

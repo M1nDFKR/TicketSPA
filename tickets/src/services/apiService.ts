@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:8000/api'; // replace with your Django API URL
 export interface Ticket {
   id: number;
   title: string;
-  description: string;
+  body: string;
   // add other fields as necessary
 }
 
