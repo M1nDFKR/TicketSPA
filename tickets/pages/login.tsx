@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useNavigation } from 'next/navigation';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ interface FormData {
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ username: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+  const navigation = useNavigation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -22,17 +22,17 @@ const LoginPage: React.FC = () => {
     });
   };
 
-const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
-  try {
-    const response = await axios.post('http://localhost:8000/api/login/', formData);
-    localStorage.setItem('authToken', response.data.token);
-    router.push('/');
-  } catch (error) {
-    console.error('Login failed:', error);
-  }
-};
+    try {
+      const response = await axios.post('http://localhost:8000/api/login/', formData);
+      localStorage.setItem('authToken', response.data.token);
+      navigation.navigate('/home');
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
