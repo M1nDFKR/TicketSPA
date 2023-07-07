@@ -1,5 +1,4 @@
 import React, { useState, FormEvent } from 'react';
-import { useNavigation } from 'next/navigation';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +12,6 @@ interface FormData {
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ username: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const navigation = useNavigation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -28,7 +26,7 @@ const LoginPage: React.FC = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/login/', formData);
       localStorage.setItem('authToken', response.data.token);
-      navigation.navigate('/home');
+      window.location.href = '/home';
     } catch (error) {
       console.error('Login failed:', error);
     }
