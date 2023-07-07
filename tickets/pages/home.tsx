@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Collapse } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'src/styles/custom.css';
 
 interface Ticket {
   id: number;
@@ -94,14 +95,28 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-light bg-light">
-        <div className="container-fluid">
-          <button className="navbar-brand" onClick={handleLogout}>Logout</button>
-          <span className="navbar-text">
+      <nav className="navbar navbar-light justify-content-between">
+        <img
+          src="/Logo.png"
+          alt="Logo"
+          className="d-inline-block align-text-top"
+          style={{ width: '165px' }}
+        />
+        <span className="navbar-text text-light">
+          <strong>
+            <h2 className="d-flex align-items-end">
+              Tickets Kit Escola Digital
+            </h2>
+          </strong>
+        </span>
+        <div>
+          <div className="navbar-text text-light">
             Logged in as: <strong>{getUsername()}</strong>
-          </span>
-          <img src="/logo.png" alt="Logo" className="d-inline-block align-text-top" />
+          </div>
         </div>
+        <div>
+        <strong><button className="btn btn-light large-button" onClick={handleLogout}>Logout</button></strong>
+          </div>
       </nav>
       <div className="container mt-4">
         <div className="row">
