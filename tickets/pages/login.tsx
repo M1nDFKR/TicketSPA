@@ -25,8 +25,6 @@ const LoginPage: React.FC = () => {
 const handleSubmit = async (e: FormEvent) => {
   e.preventDefault();
 
-  console.log(formData);  // add this line
-
   try {
     const response = await axios.post('http://localhost:8000/api/login/', formData);
     localStorage.setItem('authToken', response.data.token);
