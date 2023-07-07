@@ -27,22 +27,33 @@ const HomePage: React.FC = () => {
 
   const router = useRouter();
 
-  const handleLogout = () => {
-    // Clear user session
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('accessToken');
-    }
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No auth token found');
+      }
 
-    // Redirect to login page
-    router.push('/login');
+      await axios.post('http://localhost:8000/api/logout/', {}, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+
+      // After logging out, remove the auth token and redirect the user to the login page
+      localStorage.removeItem('authToken');
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   useEffect(() => {
     const fetchTickets = async () => {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '';
-      const response = await axios.get<Ticket[]>(`https://your-django-api-url/tickets?page=${page}&search=${search}&filter=${filter}&order=${order}`, {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : '';
+      const response = await axios.get<Ticket[]>(`http://127.0.0.1:8000/api/tickets`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Token ${token}`,
         },
       });
 
@@ -55,10 +66,10 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchComments = async () => {
       if (selectedTicket) {
-        const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '';
-        const response = await axios.get<Comment[]>(`https://your-django-api-url/tickets/${selectedTicket.id}/comments`, {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : '';
+        const response = await axios.get<Comment[]>(`http://127.0.0.1:8000/api/comments`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Token ${token}`,
           },
         });
 
@@ -72,12 +83,12 @@ const HomePage: React.FC = () => {
   const handleCommentSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '';
-    const response = await axios.post<Comment>(`http://127.0.0.1:8000/api/tickets/${selectedTicket?.id}/comments`, {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : '';
+    const response = await axios.post<Comment>(`http://127.0.0.1:8000/api/comments`, {
       text: newComment,
     }, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Token ${token}`,
       },
     });
 
