@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #04044e; 
+  }
+
+  .navbar-text {
+    text-align: left;  /* Move text to the left */
+    margin-left: 315px;  /* Adjust margin as needed */
+    position: relative;
+    top: -10px; /* Move text up. Adjust this value as needed */
+  }
+  
+  .large-button {
+    width: 80px;  /* Adjust to desired width */
+    height: 30px;  /* Adjust to desired height */
+    padding: 4px;  /* Adjust padding as needed */
+    margin-right: 5px;  /* Adjust margin as needed */
+    margin-top: 35px;
+    color: rgb(0, 3, 170);
+  } 
